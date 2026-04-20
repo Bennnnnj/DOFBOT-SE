@@ -1,0 +1,29 @@
+name: Repo Health
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Reject generated files
+        shell: bash
+        run: |
+          set -euo pipefail
+          blocked="$(git ls-files | grep -E '(^|/)(build|devel|install|logs|__pycache__|\.ipynb_checkpoints)/|\.pyc$' || true)"
+          if [ -n "$blocked" ]; then
+            echo "Generated/cache files should not be tracked:"
+            echo "$blocked"
+            exit 1
+          fi
+
+      - name: Show repository summary
+        shell: bash
+        run: |
+          echo "Tracked files: $(git ls-files | wc -l)"
+          echo "Latest commit: $(git rev-parse --short HEAD)"

@@ -1,0 +1,19 @@
+# Keep source files consistent across Windows and macOS/Linux.
+* text=auto
+
+# Preserve binary learning assets exactly.
+*.egg binary
+*.hex binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.pdf binary
+*.pb binary
+*.pt binary
+*.so binary
+*.STL binary
+*.stl binary
+*.dae binary
+*.dat binary
+*.ttf binary
+*.TTF binary
